@@ -1,43 +1,59 @@
 class Carro{
-    NomeEquipe
-    Potencia
-    VelocidadeMax
-    Aceleração
+    NomeEquipe = []
+    Potencia = []
+    VelocidadeMax = []
+    Aceleração = []
 
-    CalculoTempo(DistanciaEmMetros){
-        let resultado = DistanciaEmMetros / (this.VelocidadeMax / this.Aceleração)
-        return resultado
+    CalculoTempo(distanciaEmMetros){
+        let tempoEmSegundosArray = []
+        let tempoEmSegundos = 0
+        for(let index = 0; index < 3; index++){
+            tempoEmSegundos = distanciaEmMetros / (this.VelocidadeMax[index] / this.Aceleração[index])
+            tempoEmSegundosArray.push(tempoEmSegundos)
+        }
+        return tempoEmSegundosArray
     }
 }
 
-let carroUm = new Carro()
-carroUm.NomeEquipe = "Tesla Roadster"
-carroUm.Potencia = 1034
-carroUm.VelocidadeMax = 410
-carroUm.Aceleração = 47
+let carros = new Carro()
+ 
+carros.NomeEquipe[0] = "Tesla Roadster"
+carros.Potencia[0] = 1034
+carros.VelocidadeMax[0] = 410
+carros.Aceleração[0] = 47
 
-let carroDois = new Carro()
-carroUm.NomeEquipe = "Nissa GT-R"
-carroUm.Potencia = 572
-carroUm.VelocidadeMax = 395
-carroUm.Aceleração = 37
+carros.NomeEquipe[1] = "Nissa GT-R"
+carros.Potencia[1] = 572
+carros.VelocidadeMax[1] = 395
+carros.Aceleração[1] = 37
 
-let carroTres = new Carro()
-carroUm.NomeEquipe = "Supra"
-carroUm.Potencia = 330
-carroUm.VelocidadeMax = 250
-carroUm.Aceleração = 19
-
-let carros = [carroUm, carroDois, carroTres]
+carros.NomeEquipe[2] = "Supra"
+carros.Potencia[2] = 330
+carros.VelocidadeMax[2] = 250
+carros.Aceleração[2] = 19
 
 class Corrida{
-    NomeLocal
-    TipoCorrida
-    Distancia
-    Vencedor
+    NomeLocal 
+    TipoCorrida 
+    Distancia 
+    Vencedor 
 
-    VerificarQuemFezMenosTempo(){
+    VerificarQuemFezMenosTempo(carros){
+        let menorTempo = 10000
+        let tempoEmSegundos = carros.CalculoTempo(this.DistanciaEmMetros)
 
+        for(let index = 0; index < 3 ; index++)
+        {
+            if(menorTempo > tempoEmSegundos[index]){
+            menorTempo = tempoEmSegundos[index]
+            this.Vencedor = carros.NomeEquipe[index]
+            }
+        }
+        return this.Vencedor
+    }
+
+    ExibirVencedor(){
+        console.log("O vencedor foi: " + this.Vencedor)
     }
 }
 
